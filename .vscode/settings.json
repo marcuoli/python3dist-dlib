@@ -1,0 +1,4 @@
+{
+  // Always show agent terminal command output in the integrated terminal.
+  "chat.tools.terminal.outputLocation": "terminal"
+}
