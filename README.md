@@ -1,6 +1,9 @@
-# python3dist(dlib) Fedora 43 RPM
+# Fedora 43 RPMs for Howdy dependencies
 
-This workspace contains a starter Fedora spec for building `python3dist(dlib)`.
+This workspace contains Fedora spec files for building the dependencies needed to run Howdy on Fedora 43:
+
+- `python3dist(dlib)`
+- `pam_python`
 
 ## Why this exists
 
@@ -30,12 +33,25 @@ Você pode tentar adicionar à linha de comando:
 root@fedora43:/mnt#
 ```
 
-This repository addresses that dependency gap by providing a Fedora 43 build path for `python3dist(dlib)`.
+This repository addresses that dependency gap by providing a Fedora 43 build path for both required packages.
 
 ## Files
 
-- `SPECS/python3-dlib.spec`: RPM spec file
-- `SOURCES/`: source tarballs (if you build with plain `rpmbuild`)
+- `SPECS/python3-dlib.spec`: RPM spec for dlib
+- `SPECS/pam_python.spec`: RPM spec for pam_python
+- `~/rpmbuild/SOURCES/python-pam-1.0.8.tar.gz`: source tarball used by `pam_python.spec`
+
+## Quick install using already-built RPMs
+
+If you already built the packages, install them first and then install Howdy:
+
+```bash
+sudo dnf install -y \
+	~/rpmbuild/RPMS/x86_64/python3-dlib-19.24.6-1.fc43.x86_64.rpm \
+	~/rpmbuild/RPMS/x86_64/pam_python-1.0.8-4.fc43.x86_64.rpm
+
+sudo dnf install -y howdy
+```
 
 ## Option A: Build with mock (recommended)
 
@@ -90,10 +106,33 @@ Build:
 rpmbuild -ba ~/rpmbuild/SPECS/python3-dlib.spec
 ```
 
+Build `pam_python`:
+
+```bash
+rpmbuild -ba ~/rpmbuild/SPECS/pam_python.spec
+```
+
 Artifacts will be under:
 
 - `~/rpmbuild/SRPMS/`
 - `~/rpmbuild/RPMS/`
+
+Expected artifacts after a successful build:
+
+- `~/rpmbuild/SRPMS/python3-dlib-19.24.6-1.fc43.src.rpm`
+- `~/rpmbuild/RPMS/x86_64/python3-dlib-19.24.6-1.fc43.x86_64.rpm`
+- `~/rpmbuild/SRPMS/pam_python-1.0.8-4.fc43.src.rpm`
+- `~/rpmbuild/RPMS/x86_64/pam_python-1.0.8-4.fc43.x86_64.rpm`
+
+## Install Howdy after building
+
+```bash
+sudo dnf install -y \
+	~/rpmbuild/RPMS/x86_64/python3-dlib-*.rpm \
+	~/rpmbuild/RPMS/x86_64/pam_python-*.rpm
+
+sudo dnf install -y howdy
+```
 
 ## Notes
 
