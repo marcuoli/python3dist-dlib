@@ -2,6 +2,36 @@
 
 This workspace contains a starter Fedora spec for building `python3dist(dlib)`.
 
+## Why this exists
+
+This work was done to make it possible to run **Howdy** on Fedora 43, where installation can fail when `python3dist(dlib)` is not available in the required version.
+
+### Error observed when installing Howdy on Fedora 43
+
+The hostname below was redacted for privacy.
+
+```text
+root@fedora43:/mnt# dnf --refresh install howdy
+Atualizando e carregando repositórios:
+ RPM Fusion for Fedora 43 - Nonfree - Steam                                                                                                                                                                                                        100% |   2.4 KiB/s |  15.1 KiB |  00m06s
+ RPM Fusion for Fedora 43 - Nonfree - NVIDIA Driver                                                                                                                                                                                                100% |   3.7 KiB/s |  16.3 KiB |  00m04s
+ Fedora 43 - x86_64 - Updates                                                                                                                                                                                                                      100% |   2.4 KiB/s |   8.6 KiB |  00m04s
+ Copr repo for PyCharm owned by phracek                                                                                                                                                                                                            100% |   1.5 KiB/s |   2.1 KiB |  00m01s
+ google-chrome                                                                                                                                                                                                                                     100% | 952.0   B/s |   1.3 KiB |  00m01s
+ Fedora 43 - x86_64                                                                                                                                                                                                                                100% |  22.8 KiB/s |  60.0 KiB |  00m03s
+ Copr repo for howdy owned by principis                                                                                                                                                                                                            100% |   1.1 KiB/s |   1.5 KiB |  00m01s
+ Fedora 43 openh264 (From Cisco) - x86_64                                                                                                                                                                                                          100% | 527.0   B/s | 986.0   B |  00m02s
+Repositórios carregados.
+Falha ao resolver a transação:
+Problema: solicitações conflitantes
+	- nada fornece python3dist(dlib) >= 6.0 necessário por howdy-2.6.1-10.fc43.x86_64 de copr:copr.fedorainfracloud.org:principis:howdy
+Você pode tentar adicionar à linha de comando:
+	--skip-broken para ignorar pacotes desinstaláveis
+root@fedora43:/mnt#
+```
+
+This repository addresses that dependency gap by providing a Fedora 43 build path for `python3dist(dlib)`.
+
 ## Files
 
 - `SPECS/python3-dlib.spec`: RPM spec file
