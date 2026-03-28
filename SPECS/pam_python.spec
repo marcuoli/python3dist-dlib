@@ -37,5 +37,5 @@ install -m 0644 pam.py %{buildroot}%{python3_sitelib}/
 %{python3_sitelib}/__pycache__/pam.cpython-314*
 
 %changelog
-* Sat Mar 28 2026 Marcus Oliveira <marcuoli@gmail.com> - 1.0.8-4
+* Sat Mar 28 2026 Marcus Oliveira - 1.0.8-4
 - Rebuild for Fedora 43 with Python 3 support (drop Python 2.7 dependency)
